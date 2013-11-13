@@ -36,6 +36,8 @@ int main() {
   std::vector<TTree*> treeVec;
   treeVec.push_back(sig);
   treeVec.push_back(bkg);
+  int n_sig=0;
+  int n_bkg=0;
 
 // Loop over TTrees
 
@@ -59,11 +61,15 @@ int main() {
       // std::cout << evt.x << "  " << evt.y << "  " << evt.z << std::endl;
       // std::cout << "tFisher = " << tFisher << std::endl;
 
-      if ( i == 0 ){ 
-        hFishSig->Fill(tFisher);
-      }
-      else if ( i == 1 ){
-        hFishBkg->Fill(tFisher);
+      if (tFisher > 0){       // Apply cut
+	if ( i == 0 ){
+	  n_sig++;
+	  hFishSig->Fill(tFisher);
+	}
+	else if ( i == 1 ){
+	  n_bkg++;
+	  hFishBkg->Fill(tFisher);
+	}
       }
 
     }
@@ -72,6 +78,8 @@ int main() {
 
   histFile->Write();
   histFile->Close();
+  std::cout << "N_sig: " << n_sig << std::endl;
+  std::cout << "N_bkg: " << n_bkg << std::endl;
   return 0;
 
 }
