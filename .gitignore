@@ -6,3 +6,5 @@
 *.xml
 *.root
 */*.root
+*.nfs*
+*.class.C
