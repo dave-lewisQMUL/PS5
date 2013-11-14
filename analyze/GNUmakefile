@@ -10,8 +10,8 @@
 # Glen Cowan, RHUL Physics, November 2007.
 
 CURRENTDIR   := $(shell pwd)
-PROGNAME      = analyzeData
-SOURCES       = analyzeData.cc
+PROGNAME      = analyzeData-nocut
+SOURCES       = analyzeData-nocut.cc
 INCLFILES     = Event.h
 INCLDIR       = ../inc
 INCLUDES      = $(INCLDIR)/$(INCLFILES)
