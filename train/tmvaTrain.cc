@@ -48,7 +48,7 @@ int main() {
 
 // Book MVA methods (see TMVA manual).  
 
-  factory->BookMethod(TMVA::Types::kFisher, "Fisher", "H:!V:Fisher");   
+  factory->BookMethod(TMVA::Types::kMLP, "MLP", "H:!V:HiddenLayers=3");   
 
 // Train, test and evaluate all methods
 

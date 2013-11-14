@@ -12,8 +12,8 @@ int main() {
 // Set up an output file and book some histograms
 
   TFile* histFile = new TFile("analysis.root", "RECREATE");
-  TH1D* hFishSig = new TH1D("hFishSig", "Fisher, signal", 100, -10.0, 10.0);
-  TH1D* hFishBkg = new TH1D("hFishBkg", "Fisher, background", 100, -10.0, 10.0);
+  TH1D* hFishSig = new TH1D("hFishSig", "MLP, signal", 100, -10.0, 10.0);
+  TH1D* hFishBkg = new TH1D("hFishBkg", "MLP, background", 100, -10.0, 10.0);
 
 // Set up the TMVA Reader object.
 // The names in AddVariable must be same as in the input (weight) file.
@@ -25,7 +25,7 @@ int main() {
   reader->AddVariable("z", &z);
   std::string dir    = "../train/weights/";
   std::string prefix = "tmvaTest";
-  reader->BookMVA("Fisher", dir + prefix + "_Fisher.weights.xml");
+  reader->BookMVA("MLP", dir + prefix + "_MLP.weights.xml");
 
 // Open input file, get the TTrees, put into a vector
 
@@ -57,18 +57,18 @@ int main() {
       x = evt.x;                              // set variables of reader
       y = evt.y;
       z = evt.z;
-      double tFisher = reader->EvaluateMVA("Fisher");
+      double tMLP = reader->EvaluateMVA("MLP");
       // std::cout << evt.x << "  " << evt.y << "  " << evt.z << std::endl;
       // std::cout << "tFisher = " << tFisher << std::endl;
 
-      if (tFisher > 0){       // Apply cut
+      if (tMLP > 0.5){       // Apply cut
 	if ( i == 0 ){
 	  n_sig++;
-	  hFishSig->Fill(tFisher);
+	  hFishSig->Fill(tMLP);
 	}
 	else if ( i == 1 ){
 	  n_bkg++;
-	  hFishBkg->Fill(tFisher);
+	  hFishBkg->Fill(tMLP);
 	}
       }
 
